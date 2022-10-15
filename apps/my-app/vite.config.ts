@@ -8,6 +8,7 @@ import { offsetFromRoot } from '@nrwl/devkit';
 export default defineConfig(({ mode }) => {
   return {
     root: 'src',
+    publicDir: 'assets',
     server: {
       port: 3000,
     },
