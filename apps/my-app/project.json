@@ -6,62 +6,21 @@
   "prefix": "analog-nx",
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "nx:run-commands",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/my-app",
-        "index": "apps/my-app/src/index.html",
-        "main": "apps/my-app/src/main.ts",
-        "polyfills": "apps/my-app/src/polyfills.ts",
-        "tsConfig": "apps/my-app/tsconfig.app.json",
-        "assets": ["apps/my-app/src/favicon.ico", "apps/my-app/src/assets"],
-        "styles": ["apps/my-app/src/styles.css"],
-        "scripts": []
-      },
-      "configurations": {
-        "production": {
-          "budgets": [
-            {
-              "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
-            },
-            {
-              "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
-            }
-          ],
-          "fileReplacements": [
-            {
-              "replace": "apps/my-app/src/environments/environment.ts",
-              "with": "apps/my-app/src/environments/environment.prod.ts"
-            }
-          ],
-          "outputHashing": "all"
-        },
-        "development": {
-          "buildOptimizer": false,
-          "optimization": false,
-          "vendorChunk": true,
-          "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
-        }
-      },
-      "defaultConfiguration": "production"
+        "command": "vite build",
+        "cwd": "apps/my-app"
+      }
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
-      "configurations": {
-        "production": {
-          "browserTarget": "my-app:build:production"
-        },
-        "development": {
-          "browserTarget": "my-app:build:development"
-        }
-      },
-      "defaultConfiguration": "development"
+      "executor": "nx:run-commands",
+      "options": {
+        "color": true,
+        "cwd": "apps/my-app",
+        "command": "vite --strict-port"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -76,11 +35,11 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "executor": "nx:run-commands",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "jestConfig": "apps/my-app/jest.config.ts",
-        "passWithNoTests": true
+        "command": "vitest",
+        "cwd": "apps/my-app"
       }
     }
   },
